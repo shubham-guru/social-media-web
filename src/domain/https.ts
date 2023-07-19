@@ -3,17 +3,12 @@ import BASE_URL from "../base";
 
 const CallApi = async (
   urlEndpoint: string,
-  paramKey: string,
-  paramValue: string
+  page: number
 ) => {
   var data: Array<{}> = [{}];
-
-  const url = BASE_URL + urlEndpoint;
+  const url = BASE_URL + urlEndpoint + `?page=${page}&limit=10`;
   await axios
     .get(url, {
-      // params: {
-      //   [paramKey]: paramValue,
-      // },
     })
     .then((res) => {
       data = res.data;
