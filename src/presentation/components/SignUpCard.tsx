@@ -3,7 +3,7 @@ import styles from "../css/Home";
 import AuthChip from "./AuthChip";
 import Alert from "./Alert";
 import firebase from "../../Auth/Firebase";
-import { Card, Space, Button, Form, Input, Typography } from "antd";
+import { Card, Button, Form, Input, Typography } from "antd";
 import { LoadingOutlined } from "@ant-design/icons";
 
 type myProps = {
@@ -45,23 +45,21 @@ const SignUpCard: React.FC<myProps> = ({ userData }) => {
   };
 
   return (
-    <Card>
+    <Card style={{boxShadow: '1px 1px 5px #ddd', width: ''}}>
       <AuthChip title="Sign up" />
 
-      <Space style={{ marginTop: "2rem", width: '100%'}}>
+      <div style={{ marginTop: "2rem", width: '100%'}}>
         <Form
           name="basic"
-          labelCol={{ span: 8 }}
-          wrapperCol={{ span: 16 }}
           initialValues={{ remember: true }}
           onFinish={handleSubmit}
           autoComplete="off"
-        >
+         >
           <Form.Item
             name="Email"
             rules={[
               { required: true, message: "Please input your Email!" }, 
-              {type: "email", message: 'Please enter valid email'}
+              { type: "email", message: 'Please enter valid email'}
             ]}
           >
             <Input placeholder="Email Address" style={{width: '300px'}} onChange={(e: any) => setEmail(e.target.value)} />
@@ -80,7 +78,7 @@ const SignUpCard: React.FC<myProps> = ({ userData }) => {
             />
           </Form.Item>
 
-          <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+          <Form.Item>
             <Button
               style={styles.btnStyle}
               htmlType="submit"
@@ -90,7 +88,7 @@ const SignUpCard: React.FC<myProps> = ({ userData }) => {
             </Button>
           </Form.Item>
         </Form>
-      </Space>
+      </div>
     </Card>
   );
 };

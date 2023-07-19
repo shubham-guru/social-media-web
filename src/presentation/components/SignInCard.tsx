@@ -58,14 +58,12 @@ const SignInCard = () => {
     }
 
   return (
-    <Card>
+    <Card style={{boxShadow: '1px 1px 5px #ddd', width: '400px'}}>
     <AuthChip title="Sign in" />
 
-    <Space style={{ marginTop: "2rem", width: '100%'}}>
+    <div style={{ marginTop: "2rem", width: '100%'}}>
         <Form
           name="basic"
-          labelCol={{ span: 8 }}
-          wrapperCol={{ span: 16 }}
           style={{ width: '100%' }}
           initialValues={{ remember: true }}
           onFinish={handleSubmit}
@@ -93,7 +91,7 @@ const SignInCard = () => {
             />
           </Form.Item>
 
-          <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+          <Form.Item>
             <Button
               style={styles.btnStyle}
               htmlType="submit"
@@ -103,7 +101,7 @@ const SignInCard = () => {
             </Button>
           </Form.Item>
         </Form>
-      </Space>
+      </div>
 
       <Space style={{margin: 1}}>
         <Link sx={{cursor: 'pointer', fontSize: 12, textAlign: 'right', width: '100%'}} onClick={handleForgetPass}>Forget Password ?</Link>

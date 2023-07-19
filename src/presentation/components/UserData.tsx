@@ -2,30 +2,20 @@ import { Card, Col, Pagination, Row, Typography, Image } from "antd";
 import moment from "moment";
 import Loading from "./Loading";
 import styles from "../css/Home";
-import { HeartOutlined, HeartFilled } from "@ant-design/icons";
-import { useState } from "react";
 
 type myProps = {
   userDetails: Array<{}>;
   getPageNo: (e: number) => void;
 };
 const UserData: React.FC<myProps> = ({ userDetails, getPageNo }) => {
-  const [fillIcon, setFillIcon] = useState<boolean>(false);
-
   const handlePageChange = (e: number) => {
     getPageNo(e);
     window.scrollTo(0, 0);
   };
 
-  const handleIconClick = (index: number, id: number) => {
-    console.log(index == id)
-    if(id == index+1){
-      setFillIcon(!fillIcon)
-    }
-  }
   return (
     <Row>
-      <Col span={24}>
+      <Col style={{display:'flex', flexDirection:'column', justifyContent:'çenter', alignItems:'çenter'}} span={24}>
         {userDetails?.map((item: any, index: number) => {
           return (
             <Card
@@ -33,7 +23,6 @@ const UserData: React.FC<myProps> = ({ userDetails, getPageNo }) => {
               style={{
                 margin: 20,
                 backgroundColor: "#f2f2f2",
-                width: "90%",
                 boxShadow: `1px 1px 5px ${item.color}`,
               }}
             >
@@ -53,12 +42,14 @@ const UserData: React.FC<myProps> = ({ userDetails, getPageNo }) => {
                     preview={false}
                   />
                   <div>
+                  <div style={{display: 'flex', alignItems: 'center'}}> 
                     <Typography style={styles.textStyle}>
                       {item.name}
                     </Typography>
-
+                  <div style={{padding: .1, margin: 2, width: '10px', height: '10px', borderRadius: 20, backgroundColor: item.color}}></div>
+                  </div>
                     <Typography style={styles.idStyle}>
-                      User id :#{item.id}
+                      User id :#UD{item.id}
                     </Typography>
                   </div>
                 </div>
@@ -69,7 +60,7 @@ const UserData: React.FC<myProps> = ({ userDetails, getPageNo }) => {
 
               {item.post ? (
                 <Image
-                  width={"100%"}
+                  width={"80%"}
                   style={{ borderRadius: 15, marginTop: 10 }}
                   src={item.post}
                   alt="user_post"
@@ -83,27 +74,13 @@ const UserData: React.FC<myProps> = ({ userDetails, getPageNo }) => {
                   fontFamily: "Raleway, sans-serif",
                   letterSpacing: 0.5,
                   color: "#333",
-                  marginTop: 10,
-                  textAlign: "justify",
-                  fontSize: 11,
+                  marginTop: 20,
+                  textAlign: "center",
+                  fontSize: 12,
                 }}
               >
                 {item.comments}
               </Typography>
-
-              <div style={{ margin: 10 }}>
-                {!fillIcon ? (
-                  <HeartOutlined
-                    style={{ color: "#f23737", fontSize: 20 }}
-                    onClick={() => handleIconClick(index, item.id)}
-                  />
-                ) : (
-                  <HeartFilled
-                    style={{ color: "#f23737", fontSize: 20 }}
-                    onClick={() => handleIconClick(index, item.id)}
-                  />
-                )}
-              </div>
             </Card>
           );
         })}

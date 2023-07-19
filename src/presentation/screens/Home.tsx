@@ -98,7 +98,7 @@ const Home = () => {
       </div>
 
       <div style={{marginTop: 20}}>
-        <Tabs size='large' tabPosition={'left'} centered animated defaultActiveKey="1" items={items} onChange={(e) => handleChange(e)} />
+        <Tabs size='large' tabPosition={'top'} centered animated defaultActiveKey="1" items={items} onChange={(e) => handleChange(e)} />
     </div>    
     </Card>
   );

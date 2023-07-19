@@ -1,9 +1,10 @@
 import { Link } from "@mui/material";
-import { Space, Typography, Col, Row } from "antd";
+import { Typography, Col, Row } from "antd";
 import React, { useState } from "react";
 import mainImg from "../assest/images/main.jpg";
 import SignUpCard from "../components/SignUpCard";
 import SignInCard from "../components/SignInCard";
+import '../css/Auth.css'
 
 const Auth = () => {
   const [uid, setUid] = useState<string>("");
@@ -12,15 +13,16 @@ const Auth = () => {
     setUid(data?.uid);
   };
   return (
-    <Space style={{ flexGrow: 1 }}>
+    <div className="main">
       <Row>
-        <Col span={15}>
+        {/* Image */}
+        <Col span={14} className="imageCol">
           <img src={mainImg} alt="main" width={"100%"} />
         </Col>
 
-        <Col span={8} style={{margin: 10}}>
+        <Col className="col-container" xs={24} lg={10} style={{margin: 0}}>
           <Typography
-            style={{fontFamily: 'Raleway, sans-serif', color: '#888', fontSize: 30, marginTop: 20}}
+            style={{fontFamily: 'Raleway, sans-serif', color: '#888', fontSize: 24, marginTop: 20, marginBottom:30}}
           >
             Make connections with your loved ones
           </Typography>
@@ -37,7 +39,7 @@ const Auth = () => {
           </>}
         </Col>
       </Row>
-    </Space>
+    </div>
   );
 };
 

@@ -37,11 +37,14 @@ const EmployeeData: React.FC<myProps> = ({ employeeData, getPageNo }) => {
                       preview={false}
                     />
                   <div>
+                  <div style={{display: 'flex', alignItems: 'center'}}> 
                     <Typography style={styles.textStyle}>
                       {item.name}
                     </Typography>
+                  <div style={{padding: .1, margin: 2, width: '10px', height: '10px', borderRadius: 20, backgroundColor: item.color}}></div>
+                  </div>
                     <Typography style={styles.idStyle}>
-                      Employee id :#{item.id}
+                      Employee id :#EM{item.id}
                     </Typography>
                   </div>
                 </div>
