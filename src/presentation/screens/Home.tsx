@@ -1,14 +1,16 @@
 import React, { Suspense, useEffect, useState } from "react";
-import { Tag, Button, Card, TabsProps, Tabs } from "antd";
+import {  Button, Card, TabsProps, Tabs, Tooltip } from "antd";
 import firebase from "../../Auth/Firebase";
 import Alert from "../components/Alert";
 import pageRoutes from "../../routes/pageRoutes";
-import LogoutIcon from "@mui/icons-material/Logout";
 import Loading from "../components/Loading";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchData } from "../../domain/apiActions";
 import { Endpoints } from "../../endpoints";
+import '../css/Home.css'
+import Protected from "../components/Protected";
+import { LogoutOutlined } from "@mui/icons-material";
 
 const Home = () => {
   const UserData = React.lazy(()=> import('../components/UserData'));
@@ -16,6 +18,7 @@ const Home = () => {
   const navigate = useNavigate();
 
   const [userEmail, setUserEmail] = useState<string>("");
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(true);
   const [endpoint, setEndPoint] = useState<string>(Endpoints.GET_USERS);
   const [page, setPage] = useState<number>(1);
 
@@ -28,6 +31,7 @@ const Home = () => {
           icon: "success",
           title: "Logged out successfully",
         });
+        localStorage.removeItem("userData");
         navigate(pageRoutes.AUTH);
       })
       .catch((error) => {
@@ -45,12 +49,19 @@ const Home = () => {
   useEffect(() => {
     dispatchData(fetchData(endpoint, page));
   }, [dispatchData, page, endpoint]);
-   
 
   useEffect(() => {
     const email: any = localStorage.getItem("userData");
     setUserEmail(email);
+
+    // Checking User isLoggedIn or not
+    if(localStorage.getItem("userData")){
+      setIsLoggedIn(true)
+    }else{
+      setIsLoggedIn(false)
+    }
   }, []);
+
 
   const handleChange = (e: string) => {
     if(e === '1'){
@@ -85,22 +96,24 @@ const Home = () => {
   ];
 
   return (
-    <Card>
-      <div style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
-        <Tag style={{ cursor: "pointer", padding: 10, letterSpacing: 1 }} color="green">Namaste ! {userEmail}</Tag>
-        <Button
-          icon={<LogoutIcon fontSize="small" color="warning"/>}
-          onClick={handleLogout}
-          style={{borderColor: 'orange', color: 'orange', display: 'flex'}}
-        >
-          Logout
-        </Button>
-      </div>
+    <Protected isLoggedIn={isLoggedIn}>
+      <Card className="main-card">
+        <div className="home-div">
+          <Tooltip title="User Email">
+          <div className="user-mail">Namaste, {userEmail} !
+            <span></span>
+          </div>
+          </Tooltip>
+          <Tooltip title='Logout' className="logoutBtn">
+            <LogoutOutlined onClick={handleLogout} />
+          </Tooltip>
+        </div>
 
-      <div style={{marginTop: 20}}>
-        <Tabs size='large' tabPosition={'top'} centered animated defaultActiveKey="1" items={items} onChange={(e) => handleChange(e)} />
-    </div>    
-    </Card>
+        <div style={{marginTop: 20}}>
+          <Tabs size='large' tabPosition={'top'} centered animated defaultActiveKey="1" items={items} onChange={(e) => handleChange(e)} />
+      </div>    
+      </Card>
+    </Protected>
   );
 };
 

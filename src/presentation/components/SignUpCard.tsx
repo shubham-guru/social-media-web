@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import styles from "../css/Home";
+import "../css/SignUpSignIn.css";
 import AuthChip from "./AuthChip";
 import Alert from "./Alert";
 import firebase from "../../Auth/Firebase";
-import { Card, Button, Form, Input, Typography } from "antd";
+import { Card, Button, Form, Input } from "antd";
+import ErrorText from "./ErrorText";
 import { LoadingOutlined } from "@ant-design/icons";
 
 type myProps = {
@@ -45,48 +46,49 @@ const SignUpCard: React.FC<myProps> = ({ userData }) => {
   };
 
   return (
-    <Card style={{boxShadow: '1px 1px 5px #ddd', width: ''}}>
+    <Card className="main-card">
+      <div className="main-box">
       <AuthChip title="Sign up" />
-
-      <div style={{ marginTop: "2rem", width: '100%'}}>
-        <Form
+      <Form
           name="basic"
           initialValues={{ remember: true }}
-          onFinish={handleSubmit}
           autoComplete="off"
+          onFinish={handleSubmit}
          >
+          <div className="user-box">
           <Form.Item
             name="Email"
             rules={[
-              { required: true, message: "Please input your Email!" }, 
-              { type: "email", message: 'Please enter valid email'}
+              { required: true, message: <ErrorText text="Please enter your Email!" /> }, 
+              { type: "email", message:  <ErrorText text="Please enter valid email" />}
             ]}
+            
           >
-            <Input placeholder="Email Address" style={{width: '300px'}} onChange={(e: any) => setEmail(e.target.value)} />
+            <Input placeholder="Email Address" className="user-input" onChange={(e: any) => setEmail(e.target.value)} />
           </Form.Item>
 
+          </div>
+          
+          <div className="user-box">
           <Form.Item
             name="password"
-            rules={[{ required: true, message: "Please input your password!" }, { pattern: /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/, message: <Typography style={{fontSize: 12, color: 'red', textTransform: 'lowercase'}}>
-              A password should contain <b> a SPECIAL CHARACTER and A NUMBER</b>
-            </Typography>}]}
+            rules={[{ required: true, message: <ErrorText text="Please input your password!" /> }, 
+            { pattern: /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/, 
+            message: <ErrorText text="A password should contain a SPECIAL CHARACTER and A NUMBER" />}]}
           >
-            <Input.Password
+            <Input
+              type="password"
               placeholder="Password"
-              style={{width: '300px'}}
+              className="user-input"
               onChange={(e: any) => setPassword(e.target.value)}
             />
           </Form.Item>
-
+          </div>
           <Form.Item>
-            <Button
-              style={styles.btnStyle}
-              htmlType="submit"
-              icon={isRes ? <LoadingOutlined /> : null}
-            >
-              Sign Up
+            <Button icon={isRes ? <LoadingOutlined /> : null} htmlType="submit" className="submitBtn">
+                Sign up
             </Button>
-          </Form.Item>
+            </Form.Item>
         </Form>
       </div>
     </Card>

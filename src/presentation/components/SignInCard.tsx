@@ -1,114 +1,131 @@
-import {
-  Link,
-} from "@mui/material";
+import { Link } from "@mui/material";
 import React, { useState } from "react";
-import styles from "../css/Home";
+import "../css/SignUpSignIn.css";
 import AuthChip from "./AuthChip";
 import Alert from "./Alert";
-import firebase from '../../Auth/Firebase';
+import firebase from "../../Auth/Firebase";
 import { useNavigate } from "react-router-dom";
 import pageRoutes from "../../routes/pageRoutes";
-import { Card, Space, Button, Form, Input } from "antd";
+import { Card, Space, Button, Form, Input, Typography } from "antd";
+import ErrorText from "./ErrorText";
 import { LoadingOutlined } from "@ant-design/icons";
 
 const SignInCard = () => {
-    const [isRes, setIsRes] = useState<boolean>(false);
-    const [email, setEmail] = useState<string>("");
-    const [password, setPassword] = useState<string>("");
-    const navigate = useNavigate();
-  
-    const handleSubmit = () => {
-          setIsRes(true);
-          firebase.auth().signInWithEmailAndPassword(email, password)
-          .then((userCredential: { user: any; }) => {
-            const user = userCredential.user;
-            Alert.fire({
-              icon: "success",
-              title: "Logged in successfully",
-            });
-            localStorage.setItem('userData', user?.email)
-            navigate(pageRoutes.HOME);
-          })
-          .catch((error: { message: any; }) => {
-            const errorMessage = error.message;
-            setIsRes(false);
-            Alert.fire({
-              icon: "error",
-              title: errorMessage,
-            });
-          });
-    };
+  const [isRes, setIsRes] = useState<boolean>(false);
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const navigate = useNavigate();
 
-    const handleForgetPass = () => {
-        firebase.auth().sendPasswordResetEmail(email)
-        .then(() => {
-            Alert.fire({
-                icon: "success",
-                title: "Password reset email sent",
-              });
-        })
-        .catch((error) => {
-            Alert.fire({
-                icon: "error",
-                title: error,
-                });
-          // Handle password reset errors
-          console.error('Password reset error:', error);
+  const handleSubmit = () => {
+    setIsRes(true);
+    firebase
+      .auth()
+      .signInWithEmailAndPassword(email, password)
+      .then((userCredential: { user: any }) => {
+        const user = userCredential.user;
+        Alert.fire({
+          icon: "success",
+          title: "Logged in successfully",
         });
+        localStorage.setItem("userData", user?.email);
+        navigate(pageRoutes.HOME);
+      })
+      .catch((error: { message: any }) => {
+        const errorMessage = error.message;
+        setIsRes(false);
+        Alert.fire({
+          icon: "error",
+          title: errorMessage,
+        });
+      });
+  };
+
+  const handleForgetPass = () => {
+    if(email.trim()){
+      firebase
+      .auth()
+      .sendPasswordResetEmail(email)
+      .then(() => {
+        Alert.fire({
+          icon: "success",
+          title: "Password reset email sent",
+        });
+      })
+    } else{
+      Alert.fire({
+        icon: "error",
+        title: 'Please enter email to proceed !',
+      });
     }
+   
+  };
 
   return (
-    <Card style={{boxShadow: '1px 1px 5px #ddd', width: '400px'}}>
-    <AuthChip title="Sign in" />
+    <Card className="main-card">
+      <div className="main-box">
+        <AuthChip title="Sign in" />
 
-    <div style={{ marginTop: "2rem", width: '100%'}}>
-        <Form
-          name="basic"
-          style={{ width: '100%' }}
-          initialValues={{ remember: true }}
-          onFinish={handleSubmit}
-          autoComplete="off"
-        >
-          <Form.Item
-            name="Email"
-            rules={[
-            { required: true, message: "Please input your Email!" }, 
-            {type: "email", message: 'Please enter valid email'}
-          
-          ]}
+          <Form
+            name="basic"
+            initialValues={{ remember: true }}
+            autoComplete="off"
+            onFinish={handleSubmit}
           >
-            <Input placeholder="Email Address" style={{width: '300px'}} onChange={(e: any) => setEmail(e.target.value)} />
-          </Form.Item>
+            <div className="user-box">
+              <Form.Item
+                name="Email"
+                rules={[
+                  {
+                    required: true,
+                    message: <ErrorText text="Please enter your Email!" />,
+                  },
+                  {
+                    type: "email",
+                    message: <ErrorText text="Please enter valid email" />,
+                  },
+                ]}
+              >
+                <Input
+                  placeholder="Email Address"
+                  className="user-input"
+                  onChange={(e: any) => setEmail(e.target.value)}
+                />
+              </Form.Item>
+            </div>
 
-          <Form.Item
-            name="password"
-            rules={[{ required: true, message: "Please input your password!" }]}
-          >
-            <Input.Password
-              placeholder="Password"
-              style={{width: '300px'}}
-              onChange={(e: any) => setPassword(e.target.value)}
-            />
-          </Form.Item>
+            <div className="user-box">
+              <Form.Item
+                name="password"
+                rules={[
+                  {
+                    required: true,
+                    message: <ErrorText text="Please input your password!" />,
+                  },
+                ]}
+              >
+                <Input
+                  type="password"
+                  placeholder="Password"
+                  className="user-input"
+                  onChange={(e: any) => setPassword(e.target.value)}
+                />
+              </Form.Item>
+            </div>
+            <Form.Item>
+              <Button icon={isRes ? <LoadingOutlined /> : null} htmlType="submit" className="submitBtn">
+                Sign in
+              </Button>
+            </Form.Item>
+          </Form>
 
-          <Form.Item>
-            <Button
-              style={styles.btnStyle}
-              htmlType="submit"
-              icon={isRes ? <LoadingOutlined /> : null}
-            >
-              Sign In
-            </Button>
-          </Form.Item>
-        </Form>
+        <Space style={{ margin: 1 }}>
+          <Link onClick={handleForgetPass}>
+            <Typography className="footerTxt">Forget Password ?</Typography>
+          </Link>
+        </Space>
       </div>
+    </Card>
+  );
+};
 
-      <Space style={{margin: 1}}>
-        <Link sx={{cursor: 'pointer', fontSize: 12, textAlign: 'right', width: '100%'}} onClick={handleForgetPass}>Forget Password ?</Link>
-      </Space>
-
-  </Card>
-  )
-}
-
-export default SignInCard
+export default SignInCard;

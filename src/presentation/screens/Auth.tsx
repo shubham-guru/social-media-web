@@ -1,7 +1,6 @@
-import { Link } from "@mui/material";
-import { Typography, Col, Row } from "antd";
+import { Typography, Col, Row, Button } from "antd";
 import React, { useState } from "react";
-import mainImg from "../assest/images/main.jpg";
+import mainImg from "../assest/images/main.png";
 import SignUpCard from "../components/SignUpCard";
 import SignInCard from "../components/SignInCard";
 import '../css/Auth.css'
@@ -21,9 +20,7 @@ const Auth = () => {
         </Col>
 
         <Col className="col-container" xs={24} lg={10} style={{margin: 0}}>
-          <Typography
-            style={{fontFamily: 'Raleway, sans-serif', color: '#888', fontSize: 24, marginTop: 20, marginBottom:30}}
-          >
+          <Typography className="heading">
             Make connections with your loved ones
           </Typography>
           {uid ? (
@@ -34,8 +31,8 @@ const Auth = () => {
 
          { !uid && 
          <>
-         <Typography style={{fontSize: 13, letterSpacing: 1}}>Already have an account?</Typography>
-          <Link sx={{cursor: 'pointer'}} fontSize={13} onClick={()=>setUid('1')}>Sign in</Link>
+         <Typography className="footerTxt">Already have an account?</Typography>
+         <Button onClick={()=>setUid('1')} type='link'> <Typography className="footerTxt2">Sign in</Typography> </Button>
           </>}
         </Col>
       </Row>

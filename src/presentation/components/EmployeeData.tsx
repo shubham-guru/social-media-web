@@ -1,6 +1,6 @@
 import { Card, Col, Pagination, Row, Typography, Image } from "antd";
 import moment from "moment";
-import styles from "../css/Home";
+import "../css/Home.css";
 
 type myProps = {
   employeeData: Array<{}>;
@@ -14,59 +14,48 @@ const EmployeeData: React.FC<myProps> = ({ employeeData, getPageNo }) => {
 
   return (
     <Row>
-      <Col span={24}>
-        {employeeData?.map((item: any, index: number) => {
-          return (
-            <Card
-              key={index}
-              style={{ margin: 20, backgroundColor: "#f2f2f2", width: "90%", boxShadow: `1px 1px 5px ${item.color}` }}
-            >
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                }}
-              >
-                <div style={{ display: "flex", alignItems: "center" }}>
-                    <Image
-                      width={'40px'}
-                      style={{ borderRadius: 50 }}
-                      src={item.image}
-                      alt="profile_pic"
-                      preview={false}
-                    />
+      {employeeData?.map((item: any, index: number) => {
+        return (
+          <Col lg={12} xs={24} key={index}>
+            <Card className="data-card">
+              <div className="dataOutter-div">
+                <div className="dataInner-div">
+                  <Image
+                    width={"30px"}
+                    style={{ borderRadius: 50 }}
+                    src={item.image}
+                    alt="profile_pic"
+                    preview={false}
+                  />
                   <div>
-                  <div style={{display: 'flex', alignItems: 'center'}}> 
-                    <Typography style={styles.textStyle}>
-                      {item.name}
-                    </Typography>
-                  <div style={{padding: .1, margin: 2, width: '10px', height: '10px', borderRadius: 20, backgroundColor: item.color}}></div>
-                  </div>
-                    <Typography style={styles.idStyle}>
+                    <div style={{ display: "flex", alignItems: "center" }}>
+                      <Typography className="textStyle">{item.name}</Typography>
+                      <div className="color-dot" style={{ backgroundColor: item.color }}></div>
+                    </div>
+                    <Typography className="idStyle">
                       Employee id :#EM{item.id}
                     </Typography>
                   </div>
                 </div>
-                <Typography style={styles.textStyle}>
+                <Typography className="textStyle">
                   {moment(item.createdAt)?.utc().format("YYYY-MM-DD")}
                 </Typography>
               </div>
 
-              <h4 style={{ fontFamily: "Raleway, sans-serif", letterSpacing: 1 }}>
+              <h4 className="h4Txt">
                 Employee Details
               </h4>
 
-              <Typography style={styles.employeeData}>
+              <Typography className="employeeData">
                 Company : {item.companyName}
               </Typography>
-              <Typography style={styles.employeeData}>
+              <Typography className="employeeData">
                 Department : {item.department}
               </Typography>
-              <Typography style={styles.employeeData}>
+              <Typography className="employeeData">
                 Gender : {item.gender}
               </Typography>
-              <Typography style={styles.employeeData}>
+              <Typography className="employeeData">
                 Address :{" "}
                 {item.buildingNo +
                   "," +
@@ -79,15 +68,15 @@ const EmployeeData: React.FC<myProps> = ({ employeeData, getPageNo }) => {
                   item.country}
               </Typography>
             </Card>
-          );
-        })}
-        <Pagination
-          defaultCurrent={1}
-          onChange={(e) => handlePageChange(e)}
-          pageSize={10}
-          total={50}
-        />
-      </Col>
+          </Col>
+        );
+      })}
+      <Pagination
+        defaultCurrent={1}
+        onChange={(e) => handlePageChange(e)}
+        pageSize={10}
+        total={50}
+      />
     </Row>
   );
 };

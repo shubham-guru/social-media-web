@@ -1,0 +1,198 @@
+.employeeData {
+    font-family: "Mulish", sans-serif;
+    letter-spacing: 1px;
+    color: #847f7f;
+    margin: 4px;
+    font-size: 12px;
+    text-align: left;
+    padding: 0 50px;
+    text-transform: capitalize;
+  }
+  .main-row{
+    background-color: #20242b;
+  }
+  .main-card{
+    background-color: #20242b;
+    border-radius: 0px !important;
+  }
+  .idStyle {
+    cursor: pointer;
+    font-family: "Mulish", sans-serif;
+    letter-spacing: 1px;
+    color: #c0bebe;
+    font-size: 10px;
+    margin-left: 4px;
+  }
+  .data-card{
+    margin: 20px;
+    background-color: #30353f;
+    border: none;
+    cursor: pointer;
+    transition: .3s ease-in;
+  }
+  .data-card:hover{
+    border: solid .1px #01FFF4;
+  }
+  .color-dot{
+    padding: 0.1px;
+    margin: 3px;
+    width: 10px;
+    height: 10px;
+    border-radius: 20px;
+  }
+  .textStyle {
+    cursor: pointer;
+    font-family: "Mulish", sans-serif;
+    letter-spacing: 1px;
+    color: #c0bebe;
+    margin-left: 4px;
+  }
+  .home-div{
+    display: flex; 
+    align-items: center; 
+    justify-content: space-between;
+    background-color: #00fff294;
+    padding: 20px;
+    border-radius: 10px;
+  }
+  .logoutBtn{
+    cursor: pointer;
+  }   
+   .ant-pagination .ant-pagination-item a{
+      color: #01FFF4;
+   }
+   .ant-pagination .ant-pagination-next .ant-pagination-item-link{
+    color: #01FFF4;
+   }
+   .ant-pagination .ant-pagination-prev .ant-pagination-item-link{
+    color: #01FFF4;
+   }
+  .user-mail{
+    position: relative;
+    color: #ffffff;
+    background-color: transparent;
+    font-size: 16px;
+    border: none;
+    overflow: hidden;
+    transition: 0.5s;
+    cursor: pointer;
+    font-size: 18px;
+    font-family: "Mulish", sans-serif;
+  }
+  .user-mail span {
+    position: relative;
+    display: block;
+  }
+  .dataOutter-div{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0px 50px;
+  }
+  .dataInner-div{
+    display: flex;
+    align-items: center;
+    text-align: left;
+  }
+  .h4Txt{
+    font-family: "Raleway", sans-serif;
+    letter-spacing: 1px;
+    color: #b8b9ba;
+    text-align: left;
+    padding: 0 50px;
+  }
+  .commentsTxt{
+    font-family: 'Raleway', sans-serif;
+    letter-spacing: 0.5px;
+    color: #c0bebe;
+    margin-top: 20px;
+    text-align: justify;
+    font-size: 12px;
+    padding: 0px 50px;
+  }
+  .ant-tabs-tab{
+    color: #c0bebe;
+    font-family: 'Raleway', sans-serif;
+  }
+  .ant-tabs-tab:hover{
+    color: #c0bebe !important;
+  }
+  .ant-tabs .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn{
+    color: #01FFF4;
+  }
+  .postImage{
+    border-radius: 15px; 
+    margin-top: 10px;
+  }
+
+  @keyframes btn-anim1 {
+    0% {
+      left: -100%;
+    }
+  
+    50%,
+    100% {
+      left: 100%;
+    }
+  }
+  
+  .user-mail span:nth-child(1) {
+    left: -100%;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #01FFF4);
+    animation: btn-anim1 2s linear infinite;
+  }
+
+  @media screen and (min-width: 250px) {
+    .dataOutter-div{
+      padding: 0px 8px;
+    }
+    .textStyle {
+      font-size: 9px;
+    }
+    .idStyle{
+      font-size: 8px;
+    }
+    .color-dot{
+      width: 8px;
+      height: 8px;
+    }
+    .commentsTxt{
+      padding: 0 8px;
+      font-size: 9px;
+    }
+    .user-mail{
+      font-size: 12px;
+    }
+    .employeeData{
+      font-size: 9px;
+      padding: 0 8px;
+    }
+    .h4Txt{
+      font-size: 10px;
+      padding: 0 8px;
+    }
+  }
+  
+  @media screen and (min-width: 900px) {
+    .textStyle {
+      font-size: 14px;
+    }
+    .idStyle{
+      font-size: 10px;
+    }
+    .user-mail{
+      font-size: 13px;
+    }
+    .commentsTxt{
+      font-size: 13px;
+    }
+    .employeeData{
+      font-size: 11px;
+    }
+    .h4Txt{
+      font-size: 12px;
+    }
+  }
+  
