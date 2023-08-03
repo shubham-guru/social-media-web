@@ -17,12 +17,12 @@
   letter-spacing: 1px;
 }
 
-.footerTxt2:hover{
-    color: #00fff2ba;
+.footerTxt2:hover {
+  color: #00fff2ba;
 }
 
 .heading {
-  font-family: 'Ysabeau Office', sans-serif;
+  font-family: "Ysabeau Office", sans-serif;
   color: #fcfcfc;
   font-size: 40px;
 }
